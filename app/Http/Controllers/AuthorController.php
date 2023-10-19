@@ -18,7 +18,8 @@ class AuthorController extends Controller
 
     public function listStoryPage()
     {
-        return view('story.index');
+        $aa = ['name' => 'huy thai', 'age' => 21];
+        return view('story.index', ['list' => $aa]);
     }
 
     public function createStoryPage()
