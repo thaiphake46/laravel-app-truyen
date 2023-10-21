@@ -29,4 +29,5 @@ Route::prefix('/author')->group(function () {
     Route::get('/', [AuthorController::class, 'index']);
     Route::get('/story', [AuthorController::class, 'listStoryPage'])->name('listStoryPage');
     Route::get('/story/create', [AuthorController::class, 'createStoryPage'])->name('createStoryPage');
+    Route::post('/story/store', [AuthorController::class, 'storeStory'])->name('storeStory');
 });

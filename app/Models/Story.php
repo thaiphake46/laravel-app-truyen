@@ -10,4 +10,12 @@ class Story extends Model
     use HasFactory;
 
     protected $table = 'stories';
+    protected $fillable = [
+        'name',
+        'description',
+        'slug',
+        'image',
+        'user_id',
+        'category_id',
+    ];
 }
