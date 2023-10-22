@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    create story author
-    <form action="{{ route('storeStory') }}" method="post" enctype="multipart/form-data">
+    edit story author
+    <form action="{{ route('updateStory', ['id' => $story->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
         <div>
             <label for="name">Tên truyện</label>
-            <input id="name" type="text" name="name">
+            <input id="name" type="text" name="name" value="{{ $story->name }}" @required(true)>
         </div>
         <div>
             <label for="description">Mô tả</label>
-            <input id="description" type="text" name="description">
+            <input id="description" type="text" name="description" value="{{ $story->description }}" @required(true)>
         </div>
         <div>
             <label for="image">Ảnh</label>
@@ -20,7 +20,9 @@
             <label for="category_id">Thể loại</label>
             <select id="category_id" name="category_id">
                 @foreach ($category as $item)
-                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    <option value="{{ $item->id }}" @selected($item->id == $story->category_id)>
+                        {{ $item->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
