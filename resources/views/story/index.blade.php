@@ -11,6 +11,7 @@
                     <p>Mô tả: {{ $item->description }}</p>
                     <p>Ảnh: {{ $item->image }}</p>
                     <a href="{{ route('editStoryPage', ['id' => $item->id]) }}">Sửa</a>
+                    <a href="/" onclick="return confirm('Are you sure')">Xóa</a>
                 </li>
             @endforeach
         </ul>

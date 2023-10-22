@@ -31,5 +31,5 @@ Route::prefix('/author')->group(function () {
     Route::get('/story/create', [AuthorController::class, 'createStoryPage'])->name('createStoryPage');
     Route::post('/story/store', [AuthorController::class, 'storeStory'])->name('storeStory');
     Route::get('/story/edit/{id}', [AuthorController::class, 'editStoryPage'])->name('editStoryPage')->where('id', '[0-9]+');
-    Route::post('/story/update/{id}', [AuthorController::class, 'updateStory'])->name('updateStory')->where('id', '[0-9]+');
+    Route::patch('/story/update/{id}', [AuthorController::class, 'updateStory'])->name('updateStory')->where('id', '[0-9]+');
 });
