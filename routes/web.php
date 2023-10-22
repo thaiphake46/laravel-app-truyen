@@ -32,4 +32,5 @@ Route::prefix('/author')->group(function () {
     Route::post('/story/store', [AuthorController::class, 'storeStory'])->name('storeStory');
     Route::get('/story/edit/{id}', [AuthorController::class, 'editStoryPage'])->name('editStoryPage')->where('id', '[0-9]+');
     Route::patch('/story/update/{id}', [AuthorController::class, 'updateStory'])->name('updateStory')->where('id', '[0-9]+');
+    Route::delete('/story/delete/{id}', [AuthorController::class, 'deleteStory'])->name('deleteStory')->where('id', '[0-9]+');
 });

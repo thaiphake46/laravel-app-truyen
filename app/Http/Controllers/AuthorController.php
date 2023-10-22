@@ -110,4 +110,17 @@ class AuthorController extends Controller
 
         return redirect()->route('listStoryPage');
     }
+
+    public function deleteStory($id)
+    {
+        $story = Story::find($id);
+
+        if (Storage::disk('public/images')->exists($story->image)) {
+            Storage::delete('public/images/' . $story->image);
+        }
+
+        $story->delete();
+
+        return redirect()->route('listStoryPage');
+    }
 }
