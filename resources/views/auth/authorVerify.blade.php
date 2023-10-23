@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>VERIFY AUTHOR ACCOUNT</h1>
+     <script> window.alert("VERIFY AUTHOR ACCOUNT")</script>
+    
 @endsection

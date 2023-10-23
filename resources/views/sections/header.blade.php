@@ -11,8 +11,27 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto dropdown">
+                {{-- <i class="bi bi-list"></i>
+                <span class="ms-2">
+                    Thể loại
+                </span> --}}
 
+                <li class="nav-item dropdown">
+                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-list"></i>
+                        Thể loại
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach (App\Models\Category::all() as $category)
+                            <li>
+                                <a class="dropdown-item" href="{{ $category->slug }}">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

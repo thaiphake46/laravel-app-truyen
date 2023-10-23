@@ -14,9 +14,6 @@
                     <h1>
                         TRANG CHỦ
                     </h1>
-                    <p>
-                        {{ $name }}
-                    </p>
                 </div>
             </div>
         </div>
