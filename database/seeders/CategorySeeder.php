@@ -15,16 +15,17 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $list = [
-            'Tiểu thuyết',
-            'Truyện ngắn',
-            'Truyện dài',
-            'Kỳ bí',
-            'Kinh dị',
-            'Khoa học viễn tưởng',
-            'Lịch sử',
-            'Tình cảm',
-            'Phiêu lưu',
-            'Hài hước',
+            'Huyền Huyễn',
+            'Võng Du',
+            'Đồng Nhân',
+            'Cạnh Kỹ',
+            'Kiếm hiệp',
+            'Tiên hiệp',
+            'Khoa Huyễn',
+            'Đô Thị',
+            'Dã Sử',
+            'Huyền Nghi',
+            'Kỳ Ảo'
         ];
 
         $listInsert = array();

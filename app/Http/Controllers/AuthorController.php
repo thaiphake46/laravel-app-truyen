@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Chapter;
 use App\Models\Story;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -126,11 +127,54 @@ class AuthorController extends Controller
 
     public function listChapterPage($slug)
     {
-        return view('chapter.index', ['slug' => $slug]);
+        $story  = Story::where('slug', $slug)->get();
+        $listChapter = Chapter::where('story_id', $story[0]->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('chapter.index', [
+            'slug' => $slug,
+            'listChapter' => $listChapter
+        ]);
     }
 
     public function createChapterPage($slug)
     {
-        return view('chapter.create');
+        $story = Story::where('slug', $slug)
+            ->get();
+        // dd($story[0]->id);
+        return view('chapter.create', [
+            'slug' => $slug,
+            'story_id' => $story[0]->id
+        ]);
+    }
+
+    public function storeChapter(Request $request, $slug)
+    {
+        // dd($request->all());
+        $request->validate([
+            'story_id' => 'required|integer',
+            'name' => 'required',
+            'content' => 'required',
+        ]);
+
+        $chapterNumber = Chapter::where('story_id', $request->story_id)->get()->max('chapter_number');
+
+        if ($chapterNumber) {
+            $chapterNumber++;
+        } else {
+            $chapterNumber = 1;
+        }
+
+        $chapter = Chapter::create([
+            'slug' => Str::slug($request->name, '_') . '_' . time(),
+            'chapter_number' => $chapterNumber,
+            'name' => $request->name,
+            'content' => $request->content,
+            'story_id' => $request->story_id,
+        ]);
+
+        // dd($chapter);
+        return redirect()->route('listChapterPage', ['slug' => $slug]);
     }
 }

@@ -61,4 +61,10 @@ Route::prefix('/author')->group(function () {
         ->where([
             'slug' => '[0-9A-Za-z_]+',
         ]);
+
+    Route::post('/story/{slug}/chapter/store', [AuthorController::class, 'storeChapter'])
+        ->name('storeChapter')
+        ->where([
+            'slug' => '[0-9A-Za-z_]+',
+        ]);
 });
