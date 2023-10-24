@@ -12,10 +12,8 @@ import "tinymce/models/dom/model";
 window.addEventListener("DOMContentLoaded", () => {
     tinymce.init({
         selector: "textarea#content",
-
-        /* TinyMCE configuration options */
-        skin: false,
-        content_css: false,
+        toolbar:
+            "undo redo spellcheckdialog  | blocks fontfamily fontsizeinput | bold italic underline forecolor backcolor | link image | align lineheight checklist bullist numlist | indent outdent | removeformat typography",
         height: "800px",
         content_style: `
             body {
