@@ -27,8 +27,8 @@ class AuthorController extends Controller
         $listStory = Story::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
             ->get();
-        // dd($listStory);
-        // return $listStory;
+
+
         return view('story.index', [
             'listStory' => $listStory
         ]);
@@ -122,5 +122,15 @@ class AuthorController extends Controller
         $story->delete();
 
         return redirect()->route('listStoryPage');
+    }
+
+    public function listChapterPage($slug)
+    {
+        return view('chapter.index', ['slug' => $slug]);
+    }
+
+    public function createChapterPage($slug)
+    {
+        return view('chapter.create');
     }
 }

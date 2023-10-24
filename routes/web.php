@@ -27,10 +27,38 @@ Route::prefix('/user')->group(function () {
 
 Route::prefix('/author')->group(function () {
     Route::get('/', [AuthorController::class, 'index']);
-    Route::get('/story', [AuthorController::class, 'listStoryPage'])->name('listStoryPage');
-    Route::get('/story/create', [AuthorController::class, 'createStoryPage'])->name('createStoryPage');
-    Route::post('/story/store', [AuthorController::class, 'storeStory'])->name('storeStory');
-    Route::get('/story/edit/{id}', [AuthorController::class, 'editStoryPage'])->name('editStoryPage')->where('id', '[0-9]+');
-    Route::patch('/story/update/{id}', [AuthorController::class, 'updateStory'])->name('updateStory')->where('id', '[0-9]+');
-    Route::delete('/story/delete/{id}', [AuthorController::class, 'deleteStory'])->name('deleteStory')->where('id', '[0-9]+');
+
+    Route::get('/story', [AuthorController::class, 'listStoryPage'])
+        ->name('listStoryPage');
+
+    Route::get('/story/create', [AuthorController::class, 'createStoryPage'])
+        ->name('createStoryPage');
+
+    Route::post('/story/store', [AuthorController::class, 'storeStory'])
+        ->name('storeStory');
+
+    Route::get('/story/edit/{id}', [AuthorController::class, 'editStoryPage'])
+        ->name('editStoryPage')
+        ->where('id', '[0-9]+');
+
+    Route::patch('/story/update/{id}', [AuthorController::class, 'updateStory'])
+        ->name('updateStory')
+        ->where('id', '[0-9]+');
+
+    Route::delete('/story/delete/{id}', [AuthorController::class, 'deleteStory'])
+        ->name('deleteStory')
+        ->where('id', '[0-9]+');
+
+
+    Route::get('/story/{slug}/chapter',  [AuthorController::class, 'listChapterPage'])
+        ->name('listChapterPage')
+        ->where([
+            'slug' => '[0-9A-Za-z_]+',
+        ]);
+
+    Route::get('/story/{slug}/chapter/create', [AuthorController::class, 'createChapterPage'])
+        ->name('createChapterPage')
+        ->where([
+            'slug' => '[0-9A-Za-z_]+',
+        ]);
 });
