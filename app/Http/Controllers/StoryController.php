@@ -19,7 +19,7 @@ class StoryController extends Controller
 
     public function listStoryPage()
     {
-        $this->authorize('listStoryPage', Story::class);
+        $this->authorize('checkAuthor', Story::class);
 
         $listStory = Story::where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
@@ -32,13 +32,17 @@ class StoryController extends Controller
 
     public function createStoryPage()
     {
+        $this->authorize('checkAuthor', Story::class);
+
         $category = Category::all();
-        // dd($category);
+
         return view('story.create', ['category' => $category]);
     }
 
     public function storeStory(Request $request)
     {
+        $this->authorize('checkAuthor', Story::class);
+
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -66,9 +70,11 @@ class StoryController extends Controller
 
     public function editStoryPage($id)
     {
-        // dd('id: ' . $id);
-        $category = Category::all();
         $story = Story::find($id);
+
+        $this->authorize('editAndUpdateAndDel', $story);
+
+        $category = Category::all();
 
         return view('story.edit', [
             'category' => $category,
@@ -85,7 +91,9 @@ class StoryController extends Controller
         ]);
 
         $story = Story::find($id);
-        // dd(Storage::disk('public/images')->exists($story->image));
+
+        $this->authorize('editAndUpdateAndDel', $story);
+
         $story->name = $request->input('name');
         $story->description = $request->input('description');
 
@@ -100,7 +108,6 @@ class StoryController extends Controller
         $story->save();
 
         if ($request->hasFile('image') && $story) {
-            // $request->image->move(storage_path('app/public/images'), $generatedImageName);
             $request->file('image')->storeAs('public/images', $generatedImageName);
         }
 
@@ -110,6 +117,9 @@ class StoryController extends Controller
     public function deleteStory($id)
     {
         $story = Story::find($id);
+
+        $this->authorize('editAndUpdateAndDel', $story);
+
         Chapter::where('story_id', $story->id)->delete();
 
         if (Storage::disk('public/images')->exists($story->image)) {
@@ -138,7 +148,7 @@ class StoryController extends Controller
     {
         $story = Story::where('slug', $slug)
             ->get();
-        // dd($story[0]->id);
+
         return view('chapter.create', [
             'slug' => $slug,
             'story_id' => $story[0]->id
@@ -147,7 +157,6 @@ class StoryController extends Controller
 
     public function storeChapter(Request $request, $slug)
     {
-        // dd($request->all());
         $request->validate([
             'story_id' => 'required|integer',
             'name' => 'required',
@@ -170,7 +179,6 @@ class StoryController extends Controller
             'story_id' => $request->story_id,
         ]);
 
-        // dd($chapter);
         return redirect()->route('listChapterPage', ['slug' => $slug]);
     }
 
@@ -183,7 +191,6 @@ class StoryController extends Controller
 
     public function updateChapter(Request $request, $slug_story, $slug_chapter)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'content' => 'required',
@@ -200,7 +207,6 @@ class StoryController extends Controller
     {
         $chapter = Chapter::where('slug', $slug_chapter)->first();
         $chapter->delete();
-        // dd($chapter);
         return redirect()->route('listChapterPage', ['slug' => $slug_story]);
     }
 }
