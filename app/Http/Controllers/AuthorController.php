@@ -23,7 +23,7 @@ class AuthorController extends Controller
         $user = User::find(Auth::id());
 
         if ($user->is_author) {
-            return redirect()->route('listStoryPage');
+            return redirect()->route('author');
         }
         return view('auth.authorVerify');
     }
@@ -33,6 +33,6 @@ class AuthorController extends Controller
         $user = User::find(Auth::id());
         $user->is_author = true;
         $user->save();
-        return redirect()->route('listStoryPage');
+        return redirect()->route('author');
     }
 }
