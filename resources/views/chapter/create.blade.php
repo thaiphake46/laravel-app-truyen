@@ -8,7 +8,6 @@
     </h3>
     <form action="{{ route('storeChapter', ['slug' => $slug]) }}" method="post">
         @csrf
-        <input id="story_id" type="text" name="story_id" required value="{{ $story_id }}" hidden>
         <div class="mb-3">
             <label for="name">Tên chương</label>
             <input class="form-control mt-2" id="name" type="text" name="name" placeholder="Tên truyện" required>
