@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ 'Trang chủ' }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -18,7 +18,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body>
+<body style="margin: 0">
     <div id="app">
         @include('sections.header')
 
