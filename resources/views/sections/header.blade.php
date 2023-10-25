@@ -25,7 +25,7 @@
                     <ul class="dropdown-menu">
                         @foreach (App\Models\Category::all() as $category)
                             <li>
-                                <a class="dropdown-item" href="{{ $category->slug }}">
+                                <a class="dropdown-item text-capitalize" href="{{ $category->slug }}">
                                     {{ $category->name }}
                                 </a>
                             </li>
