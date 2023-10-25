@@ -115,6 +115,7 @@ class AuthorController extends Controller
     public function deleteStory($id)
     {
         $story = Story::find($id);
+        Chapter::where('story_id', $story->id)->delete();
 
         if (Storage::disk('public/images')->exists($story->image)) {
             Storage::delete('public/images/' . $story->image);
@@ -176,5 +177,30 @@ class AuthorController extends Controller
 
         // dd($chapter);
         return redirect()->route('listChapterPage', ['slug' => $slug]);
+    }
+
+    public function editChapterPage($slug_story, $slug_chapter)
+    {
+        $chapter = Chapter::where('slug', $slug_chapter)->first();
+
+        return view('chapter.edit', ['slug_story' => $slug_story, 'chapter' => $chapter]);
+    }
+
+    public function updateChapter(Request $request, $slug_story, $slug_chapter)
+    {
+        // dd($request->all());
+        $chapter = Chapter::where('slug', $slug_chapter)->first();
+        $chapter->name = $request->input('name');
+        $chapter->content  = $request->input('content');
+        $chapter->save();
+        return redirect()->route('listChapterPage', ['slug' => $slug_story]);
+    }
+
+    public function deleteChapter($slug_story, $slug_chapter)
+    {
+        $chapter = Chapter::where('slug', $slug_chapter)->first();
+        $chapter->delete();
+        // dd($chapter);
+        return redirect()->route('listChapterPage', ['slug' => $slug_story]);
     }
 }

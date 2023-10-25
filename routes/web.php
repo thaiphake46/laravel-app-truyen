@@ -67,4 +67,25 @@ Route::prefix('/author')->group(function () {
         ->where([
             'slug' => '[0-9A-Za-z_]+',
         ]);
+
+    Route::get('/story/{slug_story}/chapter/{slug_chapter}', [AuthorController::class, 'editChapterPage'])
+        ->name('editChapterPage')
+        ->where([
+            'slug_story' => '[0-9A-Za-z_]+',
+            'slug_chapter' => '[0-9A-Za-z_]+',
+        ]);
+
+    Route::patch('/story/{slug_story}/chapter/{slug_chapter}', [AuthorController::class, 'updateChapter'])
+        ->name('updateChapter')
+        ->where([
+            'slug_story' => '[0-9A-Za-z_]+',
+            'slug_chapter' => '[0-9A-Za-z_]+',
+        ]);
+
+    Route::delete('/story/{slug_story}/chapter/{slug_chapter}', [AuthorController::class, 'deleteChapter'])
+        ->name('deleteChapter')
+        ->where([
+            'slug_story' => '[0-9A-Za-z_]+',
+            'slug_chapter' => '[0-9A-Za-z_]+',
+        ]);
 });
