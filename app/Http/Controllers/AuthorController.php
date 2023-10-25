@@ -189,6 +189,11 @@ class AuthorController extends Controller
     public function updateChapter(Request $request, $slug_story, $slug_chapter)
     {
         // dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'content' => 'required',
+        ]);
+
         $chapter = Chapter::where('slug', $slug_chapter)->first();
         $chapter->name = $request->input('name');
         $chapter->content  = $request->input('content');

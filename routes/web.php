@@ -26,7 +26,7 @@ Route::prefix('/user')->group(function () {
 });
 
 Route::prefix('/author')->group(function () {
-    Route::get('/', [AuthorController::class, 'index']);
+    Route::get('/', [AuthorController::class, 'index'])->name('author');
 
     Route::get('/story', [AuthorController::class, 'listStoryPage'])
         ->name('listStoryPage');
