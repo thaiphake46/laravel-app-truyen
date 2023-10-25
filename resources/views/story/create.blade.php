@@ -1,30 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-    create story author
+    <h3>
+        <a href="{{ route('listStoryPage') }}"><i class="bi bi-arrow-left-circle"></i></a>
+        Đăng truyện
+    </h3>
     <form action="{{ route('storeStory') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <div>
+        <div class="mb-3">
             <label for="name">Tên truyện</label>
             <input class="form-control mt-2" id="name" type="text" name="name" placeholder="Tên truyện" required>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="description">Mô tả</label>
-            <input class="form-control mt-2" id="description" type="text" name="description" placeholder="Mô tả"
-                required>
+            <textarea required class="form-control mt-2" name="description" id="description" cols="30" rows="10"></textarea>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="image">Ảnh</label>
-            <input class="form-control" id="image" type="file" name="image" required>
+            <input class="form-control mt-2" id="image" type="file" name="image" required>
         </div>
-        <div>
+        <div class="mb-3">
             <label for="category_id">Thể loại</label>
-            <select class="form-control" id="category_id" name="category_id" required>
+            <select class="form-select" id="category_id" name="category_id" required>
                 @foreach ($category as $item)
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
             </select>
         </div>
-        <input class="btn btn-primary mt-2" type="submit" value="Submit">
+        <input class="btn btn-primary" type="submit" value="Đăng truyện">
     </form>
 @endsection
