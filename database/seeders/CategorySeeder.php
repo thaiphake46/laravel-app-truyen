@@ -32,7 +32,7 @@ class CategorySeeder extends Seeder
         foreach ($list as $key => $value) {
             array_push(
                 $listInsert,
-                ['slug' => Str::slug($value, '_'), 'name' => $value, 'description' => 'Mô tả ' . $value]
+                ['slug' => Str::slug($value, '_'), 'name' => $value]
             );
         }
 
