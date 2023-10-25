@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,68 +22,70 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::prefix('/user')->group(function () {
     Auth::routes();
-    Route::get('/authorVerify', [AccountController::class, 'verifyAuthorPage'])->name('verifyAuthorPage');
+    // Route::get('/authorVerify', [AccountController::class, 'verifyAuthorPage'])->name('verifyAuthorPage');
     Route::get('/profile', [AccountController::class, 'index'])->name('profile');
 });
 
 Route::prefix('/author')->group(function () {
     Route::get('/', [AuthorController::class, 'index'])->name('author');
+    Route::get('/verify', [AuthorController::class, 'verifyAuthorPage'])->name('verifyAuthorPage');
+    Route::post('/verify', [AuthorController::class, 'verifyAuthor'])->name('verifyAuthor');
 
-    Route::get('/story', [AuthorController::class, 'listStoryPage'])
+    Route::get('/story', [StoryController::class, 'listStoryPage'])
         ->name('listStoryPage');
 
-    Route::get('/story/create', [AuthorController::class, 'createStoryPage'])
+    Route::get('/story/create', [StoryController::class, 'createStoryPage'])
         ->name('createStoryPage');
 
-    Route::post('/story/store', [AuthorController::class, 'storeStory'])
+    Route::post('/story/store', [StoryController::class, 'storeStory'])
         ->name('storeStory');
 
-    Route::get('/story/edit/{id}', [AuthorController::class, 'editStoryPage'])
+    Route::get('/story/edit/{id}', [StoryController::class, 'editStoryPage'])
         ->name('editStoryPage')
         ->where('id', '[0-9]+');
 
-    Route::patch('/story/update/{id}', [AuthorController::class, 'updateStory'])
+    Route::patch('/story/update/{id}', [StoryController::class, 'updateStory'])
         ->name('updateStory')
         ->where('id', '[0-9]+');
 
-    Route::delete('/story/delete/{id}', [AuthorController::class, 'deleteStory'])
+    Route::delete('/story/delete/{id}', [StoryController::class, 'deleteStory'])
         ->name('deleteStory')
         ->where('id', '[0-9]+');
 
 
-    Route::get('/story/{slug}/chapter',  [AuthorController::class, 'listChapterPage'])
+    Route::get('/story/{slug}/chapter',  [StoryController::class, 'listChapterPage'])
         ->name('listChapterPage')
         ->where([
             'slug' => '[0-9A-Za-z_]+',
         ]);
 
-    Route::get('/story/{slug}/chapter/create', [AuthorController::class, 'createChapterPage'])
+    Route::get('/story/{slug}/chapter/create', [StoryController::class, 'createChapterPage'])
         ->name('createChapterPage')
         ->where([
             'slug' => '[0-9A-Za-z_]+',
         ]);
 
-    Route::post('/story/{slug}/chapter/store', [AuthorController::class, 'storeChapter'])
+    Route::post('/story/{slug}/chapter/store', [StoryController::class, 'storeChapter'])
         ->name('storeChapter')
         ->where([
             'slug' => '[0-9A-Za-z_]+',
         ]);
 
-    Route::get('/story/{slug_story}/chapter/{slug_chapter}', [AuthorController::class, 'editChapterPage'])
+    Route::get('/story/{slug_story}/chapter/{slug_chapter}', [StoryController::class, 'editChapterPage'])
         ->name('editChapterPage')
         ->where([
             'slug_story' => '[0-9A-Za-z_]+',
             'slug_chapter' => '[0-9A-Za-z_]+',
         ]);
 
-    Route::patch('/story/{slug_story}/chapter/{slug_chapter}', [AuthorController::class, 'updateChapter'])
+    Route::patch('/story/{slug_story}/chapter/{slug_chapter}', [StoryController::class, 'updateChapter'])
         ->name('updateChapter')
         ->where([
             'slug_story' => '[0-9A-Za-z_]+',
             'slug_chapter' => '[0-9A-Za-z_]+',
         ]);
 
-    Route::delete('/story/{slug_story}/chapter/{slug_chapter}', [AuthorController::class, 'deleteChapter'])
+    Route::delete('/story/{slug_story}/chapter/{slug_chapter}', [StoryController::class, 'deleteChapter'])
         ->name('deleteChapter')
         ->where([
             'slug_story' => '[0-9A-Za-z_]+',
