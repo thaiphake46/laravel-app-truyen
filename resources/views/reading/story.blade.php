@@ -5,21 +5,23 @@
         <div class="row">
             <div class="col-12 d-flex">
                 <div class="w-20 pe-4">
-                    <img class="w-100" src="{{ asset('storage\images\image1698286722_truyen_11.jpg') }}" alt="Image">
+                    <img class="w-100" src="{{ asset('storage\images/' . $story->image) }}" alt="Image">
                 </div>
                 <div class="w-80 d-flex flex-column justify-content-between">
                     <div>
                         <div class="mb-3">
                             <span class="fs-3 fw-semibold">
-                                Vạn Cổ Đệ Nhất Thần
+                                {{ $story->name }}
                             </span>
                         </div>
                         <div class="mb-3">
-                            <span class="border border-secondary text-secondary py-1 px-2 rounded-pill me-2">Tác giả</span>
+                            <span
+                                class="border border-secondary text-secondary py-1 px-2 rounded-pill me-2">{{ App\Models\User::find($story->user_id)->name }}</span>
                             <span class="border border-danger text-danger py-1 px-2 rounded-pill me-2">Đang ra</span>
-                            <span class="border border-primary text-primary py-1 px-2 rounded-pill">Thể loại</span>
+                            <span
+                                class="border border-primary text-primary py-1 px-2 rounded-pill">{{ App\Models\Category::find($story->category_id)->name }}</span>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex my-4">
                             <div>
                                 <span class="fs-5 fw-semibold me-4">1000</span><br>Chương
                             </div>
@@ -30,7 +32,7 @@
                     </div>
                     <div>
                         <a class="btn btn-danger text-white text-decoration-none fs-5 fw-semibold rounded-pill px-3"
-                            href="">
+                            href="{{ route('chapterViewPage', ['slug_story' => $story->slug, 'number' => 1]) }}">
                             <span class="me-1">
                                 <i class="bi bi-emoji-sunglasses"></i>
                             </span>
@@ -51,23 +53,7 @@
                 </span>
             </div>
             <div>
-                <p>
-                    Lý Thiên Mệnh nằm mơ đều muốn cười tỉnh.
-
-                    Nhà hắn sủng vật, vậy mà đều là trong truyền thuyết Thái Cổ Hỗn Độn Cự Thú.
-
-                    Nhà của hắn gà, là lấy Thái Dương làm thức ăn 'Vĩnh Hằng Luyện Ngục Phượng Hoàng' .
-
-                    Hắn mèo đen, là lấy lôi đình luyện hóa vạn giới 'Thái Sơ Hỗn Độn Lôi Ma' .
-
-                    Liền nhà hắn gián, đều là nắm giữ ngàn tỷ bất tử phân thân 'Vạn Giới Vĩnh Sinh Thú' . . .
-
-                    Từ đó, hắn khống chế mười đầu Thái Cổ Hỗn Độn Cự Thú, hóa thân Vạn Cổ đệ nhất Hỗn Độn Thần Linh, chu du
-                    chư thiên vạn giới, san bằng vô tận Thần Vực. Vạn vật sinh linh, Chư Thiên Thần Ma, liền bò kéo lăn,
-                    buồn bã hô run!
-
-                    PS: Truyện đã kịp tác
-                </p>
+                <p>{{ $story->description }}</p>
             </div>
             <div class="opacity-50">
                 <hr>
@@ -85,16 +71,19 @@
 
             </div>
             <div>
-                <div class="row">
-                    <div class="col-4 text-truncate"><span>chương 1</span></div>
-                    <div class="col-4 text-truncate"><span>chương 2</span></div>
-                    <div class="col-4 text-truncate"><span>chương 3</span></div>
-                </div>
-                <div class="row">
-                    <div class="col-4 text-truncate"><span>chương 1</span></div>
-                    <div class="col-4 text-truncate"><span>chương 2</span></div>
-                    <div class="col-4 text-truncate"><span>chương 3</span></div>
-                </div>
+                @foreach ($listChapter->chunk(3) as $chunk)
+                    <div class="row">
+                        @foreach ($chunk as $chapter)
+                            <div class="col-4 text-truncate">
+                                <a class="text-black text-decoration-none"
+                                    href="{{ route('chapterViewPage', ['slug_story' => $story->slug, 'number' => $chapter->chapter_number]) }}">
+                                    <span>Chương {{ $chapter->chapter_number }}:
+                                        {{ $chapter->name }}</span>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

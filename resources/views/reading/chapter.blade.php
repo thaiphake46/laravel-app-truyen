@@ -21,27 +21,28 @@
                 <div>
                     <div class="py-4">
                         <span class="fs-4 fw-semibold">
-                            Chương 1: Thánh Thú Chiến Hồn
+                            Chương {{ $chapter->chapter_number }}: {{ $chapter->name }}
                         </span>
                     </div>
                     <div>
                         <span class="me-3">
                             <i class="bi bi-journal-text"></i>
-                            Tên truyện
+                            {{ $story->name }}
                         </span>
                         <span class="me-3">
                             <i class="bi bi-brush"></i>
-                            Tác giả
+                            {{ App\Models\User::find($story->user_id)->name }}
                         </span>
                         <span>
                             <i class="bi bi-clock"></i>
-                            Thời gian
+                            {{ $story->created_at }}
                         </span>
                     </div>
                 </div>
             </div>
 
             <div class=" fs-5">
+                {!! $chapter->content !!}
             </div>
         </div>
     </div>

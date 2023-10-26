@@ -28,11 +28,12 @@ Route::prefix('/story')->group(function () {
         ->where([
             'slug' => '[0-9A-Za-z_]+',
         ]);
-    Route::get('/{slug_story}/chapter/{slug_chapter}', [HomeController::class, 'chapterViewPage'])
+
+    Route::get('/{slug_story}/chapter/{number}', [HomeController::class, 'chapterViewPage'])
         ->name('chapterViewPage')
         ->where([
             'slug_story' => '[0-9A-Za-z_]+',
-            'slug_chapter' => '[0-9A-Za-z_]+',
+            'number' => '[0-9]+',
         ]);
 });
 

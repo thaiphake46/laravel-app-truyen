@@ -11,6 +11,7 @@ class Story extends Model
 
     protected $table = 'stories';
     protected $fillable = [
+
         'name',
         'description',
         'slug',
@@ -18,4 +19,14 @@ class Story extends Model
         'user_id',
         'category_id',
     ];
+
+    public function chapter()
+    {
+        return $this->hasMany(Chapter::class);
+    }
+
+    public function latestChapter()
+    {
+        return $this->hasOne(Chapter::class)->latest();
+    }
 }
