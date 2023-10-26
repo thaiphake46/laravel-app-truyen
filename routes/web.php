@@ -21,6 +21,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
+Route::prefix('/story')->group(function () {
+    Route::get('/{slug}', [HomeController::class, 'storyViewPage'])
+        ->name('storyViewPage')
+        ->where([
+            'slug' => '[0-9A-Za-z_]+',
+        ]);
+    Route::get('/{slug_story}/chapter/{slug_chapter}', [HomeController::class, 'chapterViewPage'])
+        ->name('chapterViewPage')
+        ->where([
+            'slug_story' => '[0-9A-Za-z_]+',
+            'slug_chapter' => '[0-9A-Za-z_]+',
+        ]);
+});
+
 Route::prefix('/user')->group(function () {
     Auth::routes();
     // Route::get('/authorVerify', [AccountController::class, 'verifyAuthorPage'])->name('verifyAuthorPage');
