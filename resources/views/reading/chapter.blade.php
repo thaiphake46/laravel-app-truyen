@@ -5,24 +5,24 @@
         <div class="col-md-8">
             <div class="mb-5">
                 <div class="d-flex justify-content-between mb-3">
-                    <button class="btn" @disabled($chapter->chapter_number == 1)>
-                        <a class="text-black text-decoration-none fw-semibold"
-                            href="{{ route('chapterViewPage', ['slug_story' => $story->slug, 'number' => $chapter->chapter_number - 1]) }}">
+                    <a class="text-black text-decoration-none "
+                        href="{{ route('chapterViewPage', ['slug_story' => $story->slug, 'number' => $chapter->chapter_number - 1]) }}">
+                        <button class="btn fw-semibold" @disabled($chapter->chapter_number == 1)>
                             <span class="fs-5">
                                 <i class="bi bi-arrow-left"></i>
                             </span>
                             Chương trước
-                        </a>
-                    </button>
-                    <button class="btn" @disabled(App\Models\Chapter::where('story_id', $story->id)->get()->max('chapter_number') == $chapter->chapter_number)>
-                        <a class="text-black text-decoration-none fw-semibold"
-                            href="{{ route('chapterViewPage', ['slug_story' => $story->slug, 'number' => $chapter->chapter_number + 1]) }}">
+                        </button>
+                    </a>
+                    <a class="text-black text-decoration-none "
+                        href="{{ route('chapterViewPage', ['slug_story' => $story->slug, 'number' => $chapter->chapter_number + 1]) }}">
+                        <button class="btn fw-semibold" @disabled(App\Models\Chapter::where('story_id', $story->id)->get()->max('chapter_number') == $chapter->chapter_number)>
                             Chương sau
                             <span class="fs-5">
                                 <i class="bi bi-arrow-right"></i>
                             </span>
-                        </a>
-                    </button>
+                        </button>
+                    </a>
                 </div>
                 <div>
                     <div class="py-4">
