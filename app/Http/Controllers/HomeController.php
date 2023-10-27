@@ -9,8 +9,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $randomListStory = Story::all()->random(10);
-        $dangDoc = Story::all()->random(5);
+        $randomListStory = Story::where('is_hidden', true)->get();
+
+        // dd($listStory->random());
+
+        if (!$randomListStory->isEmpty() && $randomListStory->count() > 10) {
+            $randomListStory = $randomListStory->random(10);
+        }
+
+        $dangDoc = Story::where('is_hidden', true)->get();
+
+        if (!$dangDoc->isEmpty() && $dangDoc->count() > 5) {
+            $dangDoc = $dangDoc->random(5);
+        }
 
         $latestChapter = Story::with('latestChapter')->get();
 
@@ -32,14 +43,16 @@ class HomeController extends Controller
 
     public function chapterViewPage($slug_story, $number)
     {
-        if ($number) {
-            $story = Story::where('slug', $slug_story)->first();
-            $chapter = Chapter::where(['story_id' => $story->id, 'chapter_number' => $number])->first();
+        $story = Story::where('slug', $slug_story)->first();
+        $chapterNumberMax = Chapter::where('story_id', $story->id)->get()->max('chapter_number');
 
+        // dd($chapterNumberMax);
 
-
-            return view('reading.chapter', ['chapter' => $chapter, 'story' => $story]);
+        if ($chapterNumberMax < $number) {
+            return view('reading.endStory');
         }
-        return 'Bạn đã đọc hết truyện';
+
+        $chapter = Chapter::where(['story_id' => $story->id, 'chapter_number' => $number])->first();
+        return view('reading.chapter', ['chapter' => $chapter, 'story' => $story]);
     }
 }

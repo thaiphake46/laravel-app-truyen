@@ -59,6 +59,8 @@ class ChapterController extends Controller
             $chapterNumber++;
         } else {
             $chapterNumber = 1;
+            $story->is_hidden = true;
+            $story->save();
         }
 
         $chapter = Chapter::create([
