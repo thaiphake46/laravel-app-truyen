@@ -46,10 +46,10 @@ class HomeController extends Controller
         $story = Story::where('slug', $slug_story)->first();
         $chapterNumberMax = Chapter::where('story_id', $story->id)->get()->max('chapter_number');
 
-        // dd($chapterNumberMax);
-
         if ($chapterNumberMax < $number) {
             return view('reading.endStory');
+        } else if ($number <= 0) {
+            abort(404);
         }
 
         $chapter = Chapter::where(['story_id' => $story->id, 'chapter_number' => $number])->first();

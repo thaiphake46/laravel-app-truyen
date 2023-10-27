@@ -27,8 +27,8 @@
                                 <p class="text-secondary text-overflow-2-lines">
                                     {{ $story->description }}
                                 </p>
-                                <div class="row d-flex">
-                                    <div class="col-9">
+                                <div class="d-flex justify-content-between">
+                                    <div>
                                         <div class="text-truncate">
                                             <i class="bi bi-brush"></i>
                                             <span class="text-secondary">
@@ -36,9 +36,10 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-3">
-                                        <span class="border border-primary text-primary small px-2 truncate-100">The
-                                            loai</span>
+                                    <div>
+                                        <span class="border border-primary text-primary small px-2 truncate-100">
+                                            {{ App\Models\Category::find($story->category_id)->name }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
